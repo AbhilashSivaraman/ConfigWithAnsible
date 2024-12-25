@@ -1,0 +1,15 @@
+---
+- name: Deploy EC2 instance using CloudFormation from S3
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Create CloudFormation Stack
+      amazon.aws.cloudformation:
+        stack_name: MyNewEC2Stack
+        state: present
+        region: ap-south-1
+        template_url: "https://cloudformbucket001.s3.ap-south-1.amazonaws.com/ec2-instance.yaml"
+        capabilities:
+          - CAPABILITY_IAM
